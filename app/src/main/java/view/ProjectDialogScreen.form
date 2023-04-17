@@ -135,7 +135,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabelName" max="32767" attributes="0"/>
                           <Component id="jLabeldescription" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jScrollPaneDescription" alignment="0" pref="376" max="32767" attributes="0"/>
+                          <Component id="jScrollPaneDescription" alignment="0" pref="289" max="32767" attributes="0"/>
                           <Component id="jTextFieldName" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>

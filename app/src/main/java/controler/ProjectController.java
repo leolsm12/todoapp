@@ -33,8 +33,8 @@ public class ProjectController {
 
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
-            statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
-            statement.setDate(4, new java.sql.Date(project.getUpdatedAt().getTime()));
+            statement.setTimestamp(3, new java.sql.Timestamp(project.getCreatedAt().getTime()));
+            statement.setTimestamp(4, new java.sql.Timestamp(project.getUpdatedAt().getTime()));
 
             //Executa a sql para inser��o dos dados
             statement.execute();

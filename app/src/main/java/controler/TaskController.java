@@ -7,9 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.List;
-import java.sql.Date;
+
 import model.Task;
 import util.ConnectionFactory;
 
@@ -24,7 +23,7 @@ public class TaskController {
                 +"notes,"
                 +"deadline,"
                 +"createdAt,"
-                +"updateAt) VALUES (?, ? , ?, ?, ?, ?, ?, ?)";
+                +"updatedAt) VALUES (?, ? , ?, ?, ?, ?, ?, ?)";
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -37,13 +36,13 @@ public class TaskController {
             statement.setString(3,task.getDescription());
             statement.setBoolean(4, task.isIsCompleted());
             statement.setString(5,task.getNotes());
-            statement.setDate(6,new Date(task.getDeadline(). getTime()));
-            statement.setDate(7,new Date(task.getCreatedAt(). getTime()));
-            statement.setDate(8,new Date(task.getUpdatedAt(). getTime()));
+            statement.setTimestamp(6, new java.sql.Timestamp(task.getDeadline().getTime()));
+            statement.setTimestamp(7, new java.sql.Timestamp(task.getCreatedAt().getTime()));
+            statement.setTimestamp(8, new java.sql.Timestamp(task.getUpdatedAt().getTime()));
             statement.execute();
             
-        }catch (Exception ex){
-            throw new RuntimeException("Erro ao salvar a tarefa" 
+        }catch (SQLException ex){
+            throw new RuntimeException("Erro ao salvar a tarefa " 
                     + ex.getMessage(), ex);
             
         }finally{
@@ -85,9 +84,11 @@ public class TaskController {
             statement.setString(4,task.getNotes());
            
             statement.setBoolean(5,task.isIsCompleted());
-            statement.setDate(6,new Date(task.getDeadline().getTime()));
-            statement.setDate(7,new Date(task.getCreatedAt().getTime()));
-            statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
+            statement.setTimestamp(6, new java.sql.Timestamp(task.getDeadline().getTime()));
+            statement.setTimestamp(7, new java.sql.Timestamp(task.getCreatedAt().getTime()));
+            
+            statement.setTimestamp(8, new java.sql.Timestamp(task.getUpdatedAt().getTime()));
+           
             statement.setInt(9, task.getId());
             
             //Executando a query
