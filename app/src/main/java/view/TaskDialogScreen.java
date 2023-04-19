@@ -228,33 +228,34 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private void jLabelTooBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTooBarSaveMouseClicked
             // TODO add your handling code here:
             try{
-                Task task = new Task();
+                if(!jTextFieldName.getText().isEmpty()){
+                    Task task = new Task();
                 
-                task.setIdProject(3);
+                    task.setIdProject(project.getId());
                 
-                task.setName(jTextFieldName.getText());
-                task.setDescription(jTextAreaDescription.getText());
-                task.setNotes(jTextAreaNotas.getText());
-                task.setIsCompleted(false);
+                    task.setName(jTextFieldName.getText());
+                    task.setDescription(jTextAreaDescription.getText());
+                    task.setNotes(jTextAreaNotas.getText());
+                    task.setIsCompleted(false);
                 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date deadline = null;
-                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Date deadline = null;
                     deadline = dateFormat.parse(jFormattedTextFieldDeadline.getText());
+                    task.setDeadline(deadline);
+                    controller.save(task);
+                    JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
+                    this.dispose();
                     
-                } catch (ParseException ex) {
-                    Logger.getLogger(TaskDialogScreen.class.getName()).log(Level.SEVERE, null, ex);
-                    
-                }
-   
+                }else{
+
+                JOptionPane.showMessageDialog(rootPane, "A tarefa não foi salva,"
+                        + "pois existem campos obrigatorios a serem preenchidos ");
                 
-                task.setDeadline(deadline);
-                controller.save(task);
-                JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
+                }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(rootPane,e.getMessage());
             }
-            this.dispose();
+            
     }//GEN-LAST:event_jLabelTooBarSaveMouseClicked
 
     /**

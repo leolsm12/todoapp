@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.Task;
 import util.ConnectionFactory;
@@ -16,7 +18,7 @@ import util.ConnectionFactory;
 public class TaskController {
     
     public void save(Task task) throws SQLException{
-        String sql = "INSERT INTO task (idProject,"
+        String sql = "INSERT INTO tasks (idProject,"
                 +"name,"
                 +"description,"
                 +"completed,"
@@ -64,7 +66,7 @@ public class TaskController {
                 + "completed = ?,"
                 + "deadline = ?,"
                 + "createdAt = ?,"
-                + "updatedAt = ?,"
+                + "updatedAt = ?"
                 + "WHERE id = ?";
         
         Connection connection = null;
@@ -102,7 +104,7 @@ public class TaskController {
         
     }
     
-    public void removeById(int taskId) throws SQLException{
+    public void removeById(int taskId){
         String sql = "DELETE FROM tasks WHERE id = ?";
         
         Connection connection = null;
@@ -128,7 +130,11 @@ public class TaskController {
             ConnectionFactory.closeConnection(connection, statement);
             
             if(statement != null){
-                statement.close();
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TaskController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             
             }
         }
@@ -137,7 +143,7 @@ public class TaskController {
     
     public List<Task> getAll(int idProject){
         
-        String sql = "SELECT * FROM tasks WHERE idProjects = ?";
+        String sql = "SELECT * FROM tasks WHERE idProject = ?";
         
         Connection connection = null;
         PreparedStatement statement = null;
